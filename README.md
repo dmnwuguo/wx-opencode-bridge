@@ -164,6 +164,50 @@ timeout 420 node tests/e2e.mjs
 timeout 480 node tests/e2e-features.mjs
 ```
 
+## 🤖 给 Agent 的安装提示词
+
+把下面整段复制给可以操作终端的 AI Agent，它会按顺序完成安装、配置与使用验收。每一步都要先验证成功再继续，失败时先读日志定位，不要跳过失败步骤。
+
+```text
+请在本机安装并配置 wx-opencode-bridge，把个人微信与本机 OpenCode 桥接起来。严格按以下步骤执行。
+
+1. 环境检查
+   - 运行 node -v，版本必须 >= 22。
+   - 确认 OpenCode 服务在运行（默认 http://127.0.0.1:49374）；必要时运行 opencode serve。
+   - 如需 Basic auth 密码，用 opencode service get password 读取，但不要把密码打印出来。
+
+2. 安装
+   - git clone https://github.com/dmnwuguo/wx-opencode-bridge.git
+   - cd wx-opencode-bridge
+   - npm install
+
+3. 扫码登录
+   - 运行 npm run setup，把终端显示的二维码交给用户用微信扫码并在手机上确认。
+   - 等待登录完成。凭证保存在 ~/.wechat-opencode-bridge，不要外传，不要提交到 git。
+
+4. 配置
+   - 默认配置即可用：不要设置 WCOB_STREAMING，保持流式关闭，让一条回复只发一条微信消息。
+   - 只在需要时设置环境变量：WCOB_OPENCODE_URL、WCOB_OPENCODE_PASSWORD、
+     WCOB_STATE_DIR、WCOB_STREAM_FLUSH_MS、WCOB_CDN_BASE_URL。
+   - 本项目不读取 .env 文件，只读取进程环境变量，不要创建 .env。
+
+5. 启动
+   - 先运行 npm run doctor 自检，全部关键项通过后再继续。
+   - 临时验证用 npm start；长期运行用 npm run daemon -- start。
+   - 需要开机自启时运行 npm run install-service，并按输出提示执行 systemctl --user enable --now <服务名>。
+
+6. 使用验收
+   - 在微信给机器人发 /ping，应收到 pong 回复。
+   - 在微信发一条普通文字，应收到 OpenCode 的一条完整回复，不碎片化。
+   - 在终端发一条消息，微信应收到【终端】...和【终端回复】...两条消息。
+   - 运行 npm test，退出码应为 0。
+
+7. 交付
+   - 汇报安装路径、启动方式、自检与验收结果。
+   - 不要输出 token、密码、context_token 或用户账号标识。
+   - 不要提交运行时状态文件；仓库已有 .gitignore，保持工作区干净。
+```
+
 ## 📜 协议与合规说明
 
 本项目直接对接微信 iLink 的 `ilink/bot/*` HTTP 接口，协议实现参考了公开的 `@tencent-weixin/openclaw-weixin` 包，但不依赖该包，也未获得腾讯官方授权或书面许可。使用前请自行确认账号与服务条款风险，包括但不限于账号限制或封禁；作者不对使用该接口产生的后果负责。
