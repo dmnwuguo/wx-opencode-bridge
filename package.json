@@ -1,0 +1,25 @@
+{
+  "name": "wx-opencode-bridge",
+  "version": "0.2.0",
+  "description": "WeChat (ClawBot/iLink) <-> OpenCode bridge with SSE streaming, media, slash commands and daemon packaging.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "setup": "node src/main.mjs setup",
+    "start": "node src/main.mjs start",
+    "doctor": "node src/main.mjs doctor",
+    "status": "node src/main.mjs status",
+    "daemon": "node src/main.mjs daemon",
+    "install-service": "node src/main.mjs install-service",
+    "test": "node tests/media.mjs && node tests/form-relay.mjs && node tests/bridge-form.mjs && node tests/terminal-sync.mjs && node tests/bridge-persist.mjs && node tests/quote-relay.mjs && node tests/text-format.mjs && node tests/stream-quality.mjs && node tests/sender-stale.mjs && node tests/e2e.mjs && node tests/e2e-features.mjs"
+  },
+  "dependencies": {
+    "@opencode/client": "2.3.2"
+  },
+  "devDependencies": {
+    "qrcode-terminal": "0.12.0"
+  }
+}

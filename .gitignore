@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Internal working records — not for publication
+.superpowers/
+docs/superpowers/
+
+# Runtime state — may contain real credentials, never commit
+context-tokens.json
+terminal-sync-state.json
+opencode-sessions.json
+message-text-cache.json
+*.sync-buf.json
+bridge.log
+bridge.pid
+
+# Test-generated state
+tests/.e2e-state/
+tests/.feature-e2e-state/
+tests/.feature-mock-state/
+tests/.mock-state/
+tests/.feature-out/
