@@ -29,7 +29,7 @@
 ### 1. 克隆并安装
 
 ```bash
-git clone https://github.com/<你的账号>/wx-opencode-bridge.git
+git clone https://github.com/dmnwuguo/wx-opencode-bridge.git
 cd wx-opencode-bridge
 npm install
 ```
@@ -153,7 +153,7 @@ iLink 网关
 ## ✅ 验证
 
 ```bash
-cd <项目目录>
+cd wx-opencode-bridge
 npm test
 ```
 
