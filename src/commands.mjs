@@ -65,7 +65,7 @@ export async function routeCommand({ text, ctx, log = () => {} }) {
         return { handled: true, reply: "pong ✅ 微信 ↔ 桥接 ↔ OpenCode 链路正常" }
 
       case "version":
-        return { handled: true, reply: "wechat-opencode-bridge v0.2.0 (OpenCode V2 / iLink ClawBot)" }
+        return { handled: true, reply: "wx-opencode-bridge v0.2.0 (OpenCode V2 / iLink ClawBot)" }
 
       case "cwd":
         return { handled: true, reply: await ctx.cwd() }

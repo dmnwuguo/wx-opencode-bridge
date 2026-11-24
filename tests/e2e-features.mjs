@@ -128,8 +128,12 @@ async function main() {
     const hasPing = recs.some((r) => r.text?.includes("pong"))
     const hasImageReply = recs.some((r) => r.text && !r.text.includes("pong") && r.text.length > 3)
     const hasSentImage = recs.some((r) => r.items?.some((i) => i.type === ilink.MessageItemType.IMAGE))
-    const hasLong = recs.some((r) => r.text?.length > 200)
-    return hasPing && hasImageReply && hasSentImage && hasLong ? recs : null
+    // Streaming can split one answer into arbitrarily small bubbles. Judge the
+    // long answer by accumulated text so the check does not depend on flush timing.
+    const streamedLength = recs
+      .filter((r) => r.text && !r.text.includes("pong"))
+      .reduce((total, r) => total + r.text.length, 0)
+    return hasPing && hasImageReply && hasSentImage && streamedLength > 200 ? recs : null
   }, { label: "all feature replies", timeoutMs: 420_000 })
 
   bridge.stop()

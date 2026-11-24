@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// wechat-opencode-bridge CLI
+// wx-opencode-bridge CLI
 //
 //   setup                 扫码绑定微信 ClawBot（支持验证码 / IDC 重定向）
 //   start [--account ID]  前台运行桥接 daemon
@@ -304,7 +304,7 @@ async function cmdDoctor() {
   const pid = readPid()
   results.push({ name: "后台 daemon", pass: Boolean(pid), detail: pid ? `运行中 PID=${pid}` : "未运行（可用 daemon start 启动）" })
 
-  console.log("\n=== wechat-opencode-bridge doctor ===")
+  console.log("\n=== wx-opencode-bridge doctor ===")
   for (const r of results) console.log(`${r.pass ? "✅" : "❌"} ${r.name}: ${r.detail}`)
   const failed = results.filter((r) => !r.pass && r.name !== "后台 daemon").length
   if (failed) {
